@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gig Bag - Jurnal Konser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23171220'/%3E%3Cpath d='M11 9v10.5a3 3 0 1 0 1.6 2.6V13l8-2v6.5a3 3 0 1 0 1.6 2.6V7z' fill='%23f2a93b'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <a class="skip-link" href="#form-heading">Lewati ke form catat show</a>
+
+  <div class="page">
+    <header class="masthead">
+      <div class="brand">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <path d="M11 9v10.5a3 3 0 1 0 1.6 2.6V13l8-2v6.5a3 3 0 1 0 1.6 2.6V7z" fill="currentColor" />
+        </svg>
+        <div>
+          <h1 class="brand__title">Gig Bag</h1>
+          <p class="brand__tag">Jurnal setiap konser yang pernah kamu tonton.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="summary" id="summary" aria-live="polite" aria-label="Ringkasan"></section>
+
+    <div id="system-error" class="banner" role="alert" hidden></div>
+    <p class="status-live" id="status-live" role="status" aria-live="polite"></p>
+
+    <div class="layout">
+      <section class="form-panel" aria-labelledby="form-heading">
+        <h2 class="panel-heading" id="form-heading">Catat show</h2>
+        <form id="show-form" novalidate>
+          <input type="hidden" id="edit-id" value="" />
+
+          <div class="field">
+            <label for="f-artist">Artis / band</label>
+            <input id="f-artist" name="artist" type="text" maxlength="80" autocomplete="off" required aria-describedby="e-artist" />
+            <p class="field-error" id="e-artist" role="alert"></p>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="f-venue">Venue</label>
+              <input id="f-venue" name="venue" type="text" maxlength="80" autocomplete="off" required aria-describedby="e-venue" />
+              <p class="field-error" id="e-venue" role="alert"></p>
+            </div>
+            <div class="field">
+              <label for="f-city">Kota</label>
+              <input id="f-city" name="city" type="text" maxlength="80" autocomplete="off" required aria-describedby="e-city" />
+              <p class="field-error" id="e-city" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="f-date">Tanggal show</label>
+              <input id="f-date" name="date" type="date" required aria-describedby="e-date" />
+              <p class="field-error" id="e-date" role="alert"></p>
+            </div>
+            <div class="field">
+              <span class="pseudo-label" id="rating-label">Rating</span>
+              <div class="rating-input" id="rating-input" role="radiogroup" aria-labelledby="rating-label" aria-describedby="e-rating"></div>
+              <p class="field-error" id="e-rating" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-setlist">Setlist yang keinget <span class="opt">(opsional)</span></label>
+            <textarea id="f-setlist" name="setlistHighlights" rows="2" maxlength="500" aria-describedby="e-setlist"></textarea>
+            <p class="field-error" id="e-setlist" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="f-memory">Catatan momen <span class="opt">(opsional)</span></label>
+            <textarea id="f-memory" name="memoryNote" rows="2" maxlength="500" aria-describedby="e-memory"></textarea>
+            <p class="field-error" id="e-memory" role="alert"></p>
+          </div>
+
+          <p class="field-error form-error" id="e-form" role="alert"></p>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary" id="submit-btn">Simpan show</button>
+            <button type="button" class="btn btn--ghost" id="cancel-btn" hidden>Batal</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="list-panel" aria-labelledby="list-heading">
+        <h2 class="panel-heading" id="list-heading">Show kamu</h2>
+        <div id="list" class="list"></div>
+      </section>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

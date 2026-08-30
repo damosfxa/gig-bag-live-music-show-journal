@@ -1,0 +1,104 @@
+/* Gig Bag - "gig poster / ticket stub" theme. Deliberately dark ("concert
+   night"); amber accent concentrated on the expand moment.
+   One rule per line to stay under the repo cap while staying readable. */
+
+:root {
+  --bg: #171220; --bg-raise: #201830; --card: #241b35; --card-edge: #100c18;
+  --ink: #f5efe0; --ink-soft: #c3b8cf; --ink-faint: #8f83a3;
+  --accent: #f2a93b; --line: #362a48;
+  --danger: #ff8f8f; --danger-solid: #c0362f; --focus: #f7c877;
+  --radius: 14px; --shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.75);
+  --f-display: "Anton", "Arial Narrow", sans-serif;
+  --f-mono: "DM Mono", ui-monospace, monospace;
+  --f-body: "DM Sans", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); line-height: 1.5; color-scheme: dark; }
+.page { max-width: 1120px; margin: 0 auto; padding: clamp(1rem, 3vw, 2.5rem); }
+.sr-only, .status-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip-link { position: absolute; left: -999px; background: var(--accent); color: #171220; padding: 0.6rem 1rem; border-radius: 0 0 10px 0; font-weight: 700; z-index: 20; }
+.skip-link:focus { left: 0; }
+
+.masthead { margin-bottom: 1.5rem; }
+.brand { display: flex; align-items: center; gap: 0.9rem; }
+.brand__mark { width: 46px; height: 46px; color: var(--accent); flex: none; }
+.brand__title { font-family: var(--f-display); font-size: clamp(2.2rem, 7vw, 3.4rem); letter-spacing: 0.04em; line-height: 0.95; margin: 0; text-transform: uppercase; text-shadow: 2px 2px 0 var(--accent), 4px 4px 0 var(--card-edge); }
+.brand__tag { margin: 0.3rem 0 0; color: var(--ink-soft); font-size: 0.95rem; }
+
+.summary { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.2rem; }
+.stat { flex: 1 1 200px; background: var(--bg-raise); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 0.85rem 1.1rem; }
+.stat__label { font-family: var(--f-mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.7rem; color: var(--ink-faint); margin: 0 0 0.15rem; }
+.stat__value { font-family: var(--f-display); font-size: 1.7rem; letter-spacing: 0.02em; margin: 0; }
+.stat__value--artist { font-size: 1.25rem; line-height: 1.2; }
+
+.banner { background: color-mix(in srgb, var(--danger-solid) 22%, var(--bg-raise)); border: 1px solid var(--danger-solid); border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; }
+.loading { padding: 2rem; text-align: center; color: var(--ink-faint); font-family: var(--f-mono); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem; }
+
+.layout { display: grid; grid-template-columns: 1fr; gap: 1.4rem; }
+@media (min-width: 900px) {
+  .layout { grid-template-columns: minmax(320px, 380px) 1fr; align-items: start; }
+  .form-panel { position: sticky; top: 1.5rem; }
+}
+.panel-heading { font-family: var(--f-display); text-transform: uppercase; letter-spacing: 0.05em; font-size: 1.3rem; margin: 0 0 0.9rem; }
+
+.form-panel { background: var(--bg-raise); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem; }
+.field { margin-bottom: 0.85rem; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+label, .pseudo-label { display: block; font-family: var(--f-mono); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.3rem; }
+.opt { color: var(--ink-faint); text-transform: none; letter-spacing: 0; }
+input[type="text"], input[type="date"], textarea { width: 100%; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.6rem 0.7rem; color: var(--ink); font-family: var(--f-body); font-size: 1rem; }
+textarea { resize: vertical; min-height: 3rem; }
+input:focus-visible, textarea:focus-visible, .btn:focus-visible, .mini:focus-visible, .card__head:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.star-in:focus-visible + .star span[aria-hidden] { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+input[aria-invalid="true"], textarea[aria-invalid="true"] { border-color: var(--danger-solid); }
+.field-error { color: var(--danger); font-size: 0.8rem; margin: 0.3rem 0 0; }
+.field-error:empty { display: none; }
+.form-error { font-size: 0.9rem; }
+
+/* Rating: reversed row so a checked value fills its star and every lower one. */
+.rating-input { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 0.15rem; }
+.star-in { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.star { margin: 0; cursor: pointer; line-height: 1; }
+.star span[aria-hidden] { font-size: 1.7rem; color: var(--line); transition: color 0.12s ease; }
+.star-in:checked ~ .star span[aria-hidden], .star:hover span[aria-hidden], .star:hover ~ .star span[aria-hidden] { color: var(--accent); }
+
+.form-actions { display: flex; gap: 0.6rem; margin-top: 0.4rem; }
+.btn { font-family: var(--f-mono); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; border-radius: 10px; padding: 0.6rem 1rem; border: 1px solid transparent; cursor: pointer; min-height: 44px; }
+.btn--primary { background: var(--accent); color: #171220; font-weight: 500; box-shadow: 3px 3px 0 var(--card-edge); }
+.btn--ghost { background: transparent; color: var(--ink-soft); border-color: var(--line); }
+
+.list { display: grid; gap: 1.1rem; }
+@media (min-width: 1100px) { .list { grid-template-columns: 1fr 1fr; } }
+.card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+/* perforated ticket edge - the signature flourish */
+.card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 10px; background: radial-gradient(circle at 0 6px, transparent 0 3px, var(--card) 3px) repeat-y; background-size: 10px 14px; border-right: 1px dashed var(--line); }
+.card.is-open { border-color: var(--accent); }
+.card__head { display: grid; grid-template-columns: 1fr auto; gap: 0.4rem 0.8rem; align-items: center; width: 100%; text-align: left; background: none; border: 0; color: inherit; cursor: pointer; padding: 1rem 1rem 1rem 1.5rem; font: inherit; }
+.card__artist { font-family: var(--f-display); font-size: 1.5rem; letter-spacing: 0.02em; text-transform: uppercase; margin: 0; line-height: 1; }
+.card__where { font-family: var(--f-mono); font-size: 0.82rem; color: var(--ink-soft); margin: 0.25rem 0 0; grid-column: 1; }
+.card__meta { grid-column: 2; grid-row: 1 / span 2; text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; }
+.card__date { font-family: var(--f-mono); font-size: 0.78rem; color: var(--ink-faint); white-space: nowrap; }
+.card__stars { font-size: 1rem; letter-spacing: 0.05em; color: var(--accent); }
+.card__stars .off { color: var(--line); }
+.card__chevron { grid-column: 2; grid-row: 3; color: var(--ink-faint); font-size: 0.75rem; font-family: var(--f-mono); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* Expand: the spotlight moment */
+.card__detail { border-top: 1px dashed var(--line); padding: 0 1rem 0 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.32s ease, padding 0.32s ease; }
+.card.is-open .card__detail { max-height: 480px; padding: 0.9rem 1rem 1.1rem 1.5rem; background: color-mix(in srgb, var(--accent) 9%, var(--card)); }
+.detail-block + .detail-block { margin-top: 0.8rem; }
+.detail-block h4 { font-family: var(--f-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin: 0 0 0.25rem; }
+.detail-block p { margin: 0; white-space: pre-wrap; font-size: 0.95rem; }
+.detail-block p.empty { color: var(--ink-faint); font-style: italic; }
+.card__actions { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+.mini { font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.45rem 0.75rem; min-height: 40px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--ink-soft); cursor: pointer; }
+.mini--danger.is-armed { background: var(--danger-solid); color: #fff; border-color: var(--danger-solid); }
+
+.empty { text-align: center; padding: 2.5rem 1.2rem; border: 1px dashed var(--line); border-radius: var(--radius); background: var(--bg-raise); }
+.empty svg { width: 64px; height: 64px; color: var(--accent); opacity: 0.85; }
+.empty h3 { font-family: var(--f-display); text-transform: uppercase; letter-spacing: 0.03em; margin: 0.6rem 0 0.3rem; }
+.empty p { margin: 0 0 1rem; color: var(--ink-soft); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
